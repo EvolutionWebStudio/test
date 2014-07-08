@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Budimo Ljudi',
+	'name'=>'Test',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -20,14 +20,14 @@ return array(
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-
+		/*
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'admin',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
-
+		*/
 	),
 
 	// application components
@@ -35,7 +35,6 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
-			'class'=>'WebUser'
 		),
 		// uncomment the following to enable URLs in path-format
 
