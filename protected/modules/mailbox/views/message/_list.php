@@ -1,6 +1,6 @@
 <?php
 
-$userid =& $this->module->getUserId();
+$userid = $this->module->getUserId();
 
 if($this->getAction()->getId()=='sent') {
 	$counterUserId = $data->recipient_id;

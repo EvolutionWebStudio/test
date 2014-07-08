@@ -44,7 +44,7 @@ class Message extends CActiveRecord
 	 */
 	public function rules()
 	{
-		$module =& Yii::app()->controller->module;
+		$module = Yii::app()->controller->module;
 		$p = new CHtmlPurifier();
 		if(Yii::app()->controller->module->isAdmin())
 			$p->options = $module->adminHtml;

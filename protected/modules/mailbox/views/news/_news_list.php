@@ -2,7 +2,7 @@
 
 //CVarDumper::dump($data); return;
 
-$userid =& $this->module->getUserId();
+$userid = $this->module->getUserId();
 
 
 $viewLink = $this->createUrl('news/info',array('id'=>$data->conversation_id));
