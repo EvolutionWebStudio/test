@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl; ?>/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl; ?>css/bootstrap-theme.min.css"/>
 
-    <script src="<?php echo Yii::app()->baseUrl; ?>/js/vendor/modernizr-2.6.2.min.js"></script>
+    <script src="<?php echo Yii::app()->baseUrl; ?>/js/vendor/custom.modernizr.js"></script>
 </head>
 
 <body>
