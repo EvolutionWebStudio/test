@@ -43,6 +43,7 @@
     <script src="<?php echo Yii::app()->baseUrl; ?>/js/bootstrap.min.js"></script>
     <script src="<?php echo Yii::app()->baseUrl; ?>/js/plugins.js"></script>
     <script src="<?php echo Yii::app()->baseUrl; ?>/js/main.js"></script>
+    <script src="<?php echo Yii::app()->baseUrl; ?>/js/vendor/jquery-ui/jquery-ui.js"></script>
 
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
