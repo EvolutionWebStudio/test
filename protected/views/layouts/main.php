@@ -10,11 +10,11 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl; ?>/css/normalize.css">
-    <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl; ?>/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl; ?>css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="<?php echo Yii::app()->getBaseUrl(true); ?>/css/normalize.css">
+    <link rel="stylesheet" href="<?php echo Yii::app()->getBaseUrl(true); ?>/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="<?php echo Yii::app()->getBaseUrl(true); ?>css/bootstrap-theme.min.css"/>
 
-    <script src="<?php echo Yii::app()->baseUrl; ?>/js/vendor/modernizr-2.6.2.min.js"></script>
+    <script src="<?php echo Yii::app()->getBaseUrl(true); ?>/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
 
 <body>
@@ -40,10 +40,10 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<?php echo Yii::app()->baseUrl; ?>/js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-    <script src="<?php echo Yii::app()->baseUrl; ?>/js/bootstrap.min.js"></script>
-    <script src="<?php echo Yii::app()->baseUrl; ?>/js/plugins.js"></script>
-    <script src="<?php echo Yii::app()->baseUrl; ?>/js/main.js"></script>
-    <script src="<?php echo Yii::app()->baseUrl; ?>/js/vendor/jquery-ui/jquery-ui.js"></script>
+    <script src="<?php echo Yii::app()->getBaseUrl(true); ?>/js/bootstrap.min.js"></script>
+    <script src="<?php echo Yii::app()->getBaseUrl(true); ?>/js/plugins.js"></script>
+    <script src="<?php echo Yii::app()->getBaseUrl(true); ?>/js/main.js"></script>
+    <script src="<?php echo Yii::app()->getBaseUrl(true); ?>/js/vendor/jquery-ui/jquery-ui.js"></script>
 
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
