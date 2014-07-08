@@ -51,7 +51,7 @@ class NewsController extends Controller
 	
 	public function actionInfo($id)
 	{
-//		$cs =& $this->module->getClientScript();
+//		$cs = $this->module->getClientScript();
 //		$cs->registerScriptFile($this->module->getAssetsUrl().'/js/message.js');
 //		$js = '$(".mailbox-message-list").yiiMailboxMessage('.$this->module->getOptions().");";
 //		$cs->registerScript('mailbox-js',$js,CClientScript::POS_READY);

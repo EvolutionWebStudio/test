@@ -118,15 +118,15 @@ class MailboxModule extends CWebModule
 	 *	- 'basic' Adds themes to buttons and some elements but keeps the background/font color of the parent element. Ie. <body> or #content
 	 *	- 'widget' Full JUI themes
 	 */
-	public $juiThemes='widget';
+	public $juiThemes='none';
 	/**
 	 * @property boolean enable/disable the JUI themes for buttons. Eg. if you want to use Twitter Bootstrap buttons instead.
 	 */
-	public $juiButtons=true;
+	public $juiButtons=false;
 	/**
 	 * @property boolean whether to add icons to menu buttons (only if juiButtons is enabled)
 	 */
-	public $juiIcons=true;
+	public $juiIcons=false;
 	/**
 	 * @property string default subject to use when no subject is provided.
 	 */
@@ -412,8 +412,9 @@ class MailboxModule extends CWebModule
 		if( ($this->juiThemes=='basic' || $this->juiThemes=='widget') && $this->juiButtons)
 		{
 			$js = '$(".btn").button(); $(".btn-group").buttonset();';
+            $this->_cs->registerScript('mailbox-buttons',$js,CClientScript::POS_READY);
 		}
-		$this->_cs->registerScript('mailbox-buttons',$js,CClientScript::POS_READY);
+
 	}
 	
 	public function registerConfig($actionId)

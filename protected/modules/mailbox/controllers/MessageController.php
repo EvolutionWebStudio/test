@@ -34,7 +34,7 @@ class MessageController extends Controller
 	public function actionInbox($ajax=null)
 	{
 		$this->module->registerConfig($this->getAction()->getId());
-		$cs =& $this->module->getClientScript();
+		$cs = $this->module->getClientScript();
 		$cs->registerScriptFile($this->module->getAssetsUrl().'/js/mailbox.js',CClientScript::POS_END);
 		//$js = '$("#mailbox-list").yiiMailboxList('.$this->module->getOptions().');console.log(1)';
 
@@ -89,7 +89,7 @@ class MessageController extends Controller
 		{
 			$this->buttonAction('trash','trash');
 		}
-		$period =& $this->module->recyclePeriod;
+		$period = $this->module->recyclePeriod;
 		Yii::app()->user->setFlash('notice', "Messages in the trash are deleted within {$period} days.");
 		$dataProvider = new CActiveDataProvider( Mailbox::model()->trash($this->module->getUserId()) );
 		if(isset($ajax))
@@ -102,7 +102,7 @@ class MessageController extends Controller
 	public function actionNew()
 	{
 		$this->module->registerConfig($this->getAction()->getId());
-		$cs =& $this->module->getClientScript();
+		$cs = $this->module->getClientScript();
 		$cs->registerScriptFile($this->module->getAssetsUrl().'/js/compose.js');
 		$cs->registerScriptFile($this->module->getAssetsUrl().'/js/jquery.combobox.contacts.js');
 		$js = '$(".mailbox-compose").yiiMailboxCompose('.$this->module->getOptions().");";
@@ -264,7 +264,7 @@ class MessageController extends Controller
 	public function actionView()
 	{
 		$this->module->registerConfig($this->getAction()->getId());
-		$cs =& $this->module->getClientScript();
+		$cs = $this->module->getClientScript();
 		$cs->registerScriptFile($this->module->getAssetsUrl().'/js/message.js');
 		$js = '$(".mailbox-message-list").yiiMailboxMessage('.$this->module->getOptions().");";
 		$cs->registerScript('mailbox-js',$js,CClientScript::POS_READY);
