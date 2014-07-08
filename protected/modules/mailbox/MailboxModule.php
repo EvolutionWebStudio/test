@@ -336,7 +336,7 @@ class MailboxModule extends CWebModule
 	 */
 	public function getUserSupportList()
 	{
-		$list = array('admin'=>'Site Administrator','support'=>'Customer Support','billing'=>'Billing Administrator' );
+		$list = array('webmaster@example.com'=>'Site Administrator','support'=>'Customer Support','billing'=>'Billing Administrator' );
 		
 		// we add site news as an option for the admin to create news updates by messaging the news box...
  		if($this->isAdmin())
