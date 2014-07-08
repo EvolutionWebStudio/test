@@ -6,11 +6,11 @@
         Purpose of the stylesheet follows.
 */
 
-.mailbox-menu{
-	float:left;
-	width:170px;
-	margin-top:0px;
-}
+    /*.mailbox-menu{
+        float:left;
+        width:170px;
+        margin-top:0px;
+    }*/
 
 .mailbox-menu-item:last-child{
 	margin-bottom: 0px !important;
@@ -20,11 +20,11 @@
 	width:100% !important;
 }
 
-.mailbox-list{
-	margin-left:180px;
-	margin-top: 0px !important;
-	clear:none !important;
-}
+    /*.mailbox-list{
+        margin-left:180px;
+        margin-top: 0px !important;
+        clear:none !important;
+    }*/
 .mailbox-message-list{
 	margin-top:20px;
 }

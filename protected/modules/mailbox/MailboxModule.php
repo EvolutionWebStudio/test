@@ -60,7 +60,7 @@ class MailboxModule extends CWebModule
 	 *
 	 * @property boolean whether to allow user's to message other users. Ie false means users can only contact admins 
 	 */
-	public $userToUser = false;
+	public $userToUser = true;
 	/*
 	 * The following properties do not have an affect if you are using an authManager such as Rights. In this case the authManager will control the access.
 	 *	- sendMsgs
@@ -88,7 +88,7 @@ class MailboxModule extends CWebModule
 	/**
 	* @property boolean whether or not to enable/disable drag-n-drop deleting.
 	*/
-	public $dragDelete = true;
+	public $dragDelete = false;
 	/**
 	* @property integer wether to ask the user for confirmation before deleting messages. Note that if trashbox is turned off, values of 1 and 2 have the same effect (since messages are always permanently).
 	 *	0 - Never ask for user confirmation.
@@ -118,15 +118,15 @@ class MailboxModule extends CWebModule
 	 *	- 'basic' Adds themes to buttons and some elements but keeps the background/font color of the parent element. Ie. <body> or #content
 	 *	- 'widget' Full JUI themes
 	 */
-	public $juiThemes='widget';
+	public $juiThemes='none';
 	/**
 	 * @property boolean enable/disable the JUI themes for buttons. Eg. if you want to use Twitter Bootstrap buttons instead.
 	 */
-	public $juiButtons=true;
+	public $juiButtons=false;
 	/**
 	 * @property boolean whether to add icons to menu buttons (only if juiButtons is enabled)
 	 */
-	public $juiIcons=true;
+	public $juiIcons=false;
 	/**
 	 * @property string default subject to use when no subject is provided.
 	 */
@@ -383,7 +383,8 @@ class MailboxModule extends CWebModule
 		$this->_cs->registerScriptFile($this->_assetsUrl.'/js/jquery.colors.js');
 		$this->_cs->registerScriptFile($this->_assetsUrl.'/js/menu.js',CClientScript::POS_END);
 		$this->_cs->registerScriptFile($this->_assetsUrl.'/js/jquery.qtip.min.js');
-		$this->_cs->registerCssFile($this->_assetsUrl. '/css/jquery.qtip.min.css'); 
+		$this->_cs->registerCssFile(Yii::app()->getBaseUrl() . '/css/bootstrap.min.css');
+		$this->_cs->registerCssFile($this->_assetsUrl. '/css/jquery.qtip.min.css');
 		$this->_cssCoreUrl = $this->_cs->getCoreScriptUrl();
 		$this->_cs->registerCssFile($this->_cssCoreUrl . '/jui/css/base/jquery-ui.css');
 		//$cs->registerCssFile($assetsUrl.'/css/mailbox.css');

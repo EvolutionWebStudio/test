@@ -1,1 +1,1 @@
-<div class="mailbox-empty">You have no messages in your <?php echo $this->getAction()->getId(); ?> folder.</div>
+<div class="mailbox-empty alert alert-warning">You have no messages in your <?php echo $this->getAction()->getId(); ?> folder.</div>
