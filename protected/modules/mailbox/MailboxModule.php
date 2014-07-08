@@ -60,7 +60,7 @@ class MailboxModule extends CWebModule
 	 *
 	 * @property boolean whether to allow user's to message other users. Ie false means users can only contact admins 
 	 */
-	public $userToUser = true;
+	public $userToUser = false;
 	/*
 	 * The following properties do not have an affect if you are using an authManager such as Rights. In this case the authManager will control the access.
 	 *	- sendMsgs
