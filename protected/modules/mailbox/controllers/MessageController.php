@@ -190,7 +190,7 @@ class MessageController extends Controller
 			}
 			else
 			{
-				Yii::app()->user->setFlash('error', "Error sending message!");
+				Yii::app()->user->setFlash('danger', "Error sending message!");
 			}
 		}
 		else{
@@ -256,7 +256,7 @@ class MessageController extends Controller
 				$this->redirect(array('message/inbox'));
 			}
 			else{
-				Yii::app()->user->setFlash('error', "Error sending message!");
+				Yii::app()->user->setFlash('danger', "Error sending message!");
 			
 				$this->render('message',array('conv'=>$conv, 'reply'=>$reply));
 			}

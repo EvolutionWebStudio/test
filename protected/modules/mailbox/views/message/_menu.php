@@ -18,11 +18,18 @@ else
 }
 
 ?>
-<div class="mailbox-menu  ui-helper-clearfix">
-	<div class="mailbox-menu-folders ui-helper-clearfix">
+<div class="mailbox-menu ui-helper-clearfix col-md-2">
+    <?php
+    if($authNew) :
+        ?>
+        <div class="mailbox-menu-newmsg ui-helper-clearfix" align="center">
+            <span><a href="<?php echo $this->createUrl('message/new'); ?>" class="btn btn-primary btn-block">New Message</a></span>
+        </div>
+    <?php endif; ?>
+	<div class="mailbox-menu-folders list-group">
 		<?php
 		if($authInbox):?>
-		<div id="mailbox-inbox" class="mailbox-menu-item <?php  echo ($action=='inbox')? 'mailbox-menu-current' : '' ; ?>">
+		<div id="mailbox-inbox" class="mailbox-menu-item list-group-item <?php echo ($action=='inbox')? 'mailbox-menu-current' : '' ; ?>">
 			<a href="<?php echo $this->createUrl('message/inbox'); ?>">Inbox <span class="mailbox-new-msgs"><?php echo $newMsgs? '('.$newMsgs.')' : null ; ?></span></a>
 		</div>
 		<?php endif;
@@ -37,12 +44,4 @@ else
 		</div>
 		<?php endif; ?>
 	</div>
-<?php
-if($authNew) :
-	?>
-	<div class="mailbox-menu-newmsg  ui-helper-clearfix" align="center">
-		<span><a href="<?php echo $this->createUrl('message/new'); ?>">New Message</a></span>
-	</div>
-<?php endif; ?>
-
 </div>
