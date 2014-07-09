@@ -16,6 +16,7 @@ else
 	$authTrash = $this->module->trashbox && (!$this->module->readOnly || $this->module->isAdmin());
 	$authSent = $this->module->sentbox && (!$this->module->readOnly || $this->module->isAdmin());
 }
+
 ?>
 <div class="mailbox-menu col-md-2">
     <?php

@@ -247,6 +247,9 @@ div.mailbox-from{
 	text-align: center;
 	font-size:1.4em;
 }
+.msgs-count {
+    display: none;
+}
 div.mailbox-loading  {
     opacity: .8;
     z-index: 999;

@@ -118,15 +118,15 @@ class MailboxModule extends CWebModule
 	 *	- 'basic' Adds themes to buttons and some elements but keeps the background/font color of the parent element. Ie. <body> or #content
 	 *	- 'widget' Full JUI themes
 	 */
-	public $juiThemes='none';
+	public $juiThemes='widget';
 	/**
 	 * @property boolean enable/disable the JUI themes for buttons. Eg. if you want to use Twitter Bootstrap buttons instead.
 	 */
-	public $juiButtons=false;
+	public $juiButtons=true;
 	/**
 	 * @property boolean whether to add icons to menu buttons (only if juiButtons is enabled)
 	 */
-	public $juiIcons=false;
+	public $juiIcons=true;
 	/**
 	 * @property string default subject to use when no subject is provided.
 	 */
@@ -538,7 +538,7 @@ EOD;
 		if(!$userid)
 			$userid = $this->getUserId();
 		return Mailbox::newMsgs($userid);
-		
+
 		// Update message count only once every 30 seconds
 		if(!$this->_new)
 			$this->_new = Mailbox::newMsgs(Yii::app()->user->id);

@@ -21,5 +21,13 @@ class AjaxController extends Controller
 		
 		die(Yii::app()->controller->module->autoComplete($_GET['term']));
 	}
+
+	public function actionGetNewMsgs()
+	{
+		if(!isset($_GET['term']))
+			throw new Exception('Term required');
+
+		die(Yii::app()->controller->module->getNewMsgs());
+	}
 	
 }
