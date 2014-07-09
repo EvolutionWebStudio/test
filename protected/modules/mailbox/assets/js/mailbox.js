@@ -197,7 +197,17 @@
 			* Remove buttons label
 			*/
 			$('.mailbox-buttons-label').hide();
-
+            var count = $('.msgs-count').html();
+            if(count == 0 || count == undefined)
+            {
+                $('.mailbox-empty')
+                    .addClass('ui-widget')
+                    .css({'background':'none'});
+                $('.mailbox-new-msgs').text('');
+            }
+            else{
+                $('.mailbox-new-msgs').text('('+count+')');
+            }
 			/*
 			* Pager Styles
 			*/
@@ -262,6 +272,7 @@
 			/*
 			* If mailbox is empty
 			*/
+            /*
 			var count = $('.mailbox-count').attr('value');
 			if(count == 0 || count == undefined)
 			{
@@ -272,7 +283,7 @@
 			}
 			else{
 				$('.mailbox-new-msgs').text('('+count+')');
-			}
+			}*/
 		}
 	}
 
@@ -310,6 +321,7 @@
 			data: data,
 			success: function(response){
 				if(response.success) {
+
 					// Tiny desc is used by drag-n-drop only
 					if(response.tinydesc)
 						$("#"+response.dragdrop+"-tinydesc").text(response.tinydesc).show().fadeOut(4000);
@@ -322,6 +334,11 @@
 						// reload page to display empty folder message
 						location.reload();
 					}
+
+
+
+
+
 				}
 				else
 					ajaxGrowl(response.error, buttonname);

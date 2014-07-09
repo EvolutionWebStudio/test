@@ -74,7 +74,8 @@ $this->widget('zii.widgets.CListView', array(
 }
 else {
 	
-} 
+}
+echo '<div class="msgs-count hide">' . $this->module->getNewMsgs() . '</div>'
 ?>
 </div>
 

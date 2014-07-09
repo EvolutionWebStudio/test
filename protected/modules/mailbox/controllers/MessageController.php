@@ -39,7 +39,7 @@ class MessageController extends Controller
 		//$js = '$("#mailbox-list").yiiMailboxList('.$this->module->getOptions().');console.log(1)';
 
 		//$cs->registerScript('mailbox-js',$js,CClientScript::POS_READY);
-		
+
 		
 		if(isset($_POST['convs']))
 		{
@@ -119,13 +119,15 @@ class MessageController extends Controller
 			$conv->initiator_id = $this->module->getUserId();
 
 			// Check if username exist
-			if(strlen($_POST['Mailbox']['to'])>1)
+			if(strlen($_POST['Mailbox']['to'])>1){
 				$conv->interlocutor_id = $this->module->getUserId($_POST['Mailbox']['to']);
+				}
 			else
 				$conv->interlocutor_id = 0;
 			// ...if not check if To field is user id
 			if(!$conv->interlocutor_id)
 			{
+
 				if($_POST['Mailbox']['to'] && ($this->module->allowLookupById || $this->module->isAdmin()))
 					$username = $this->module->getUserName($_POST['Mailbox']['to']);
 				if(@$username) {
@@ -136,7 +138,7 @@ class MessageController extends Controller
 					// possible that javscript was off and user selected from the userSupportList drop down.
 					if(isset($_POST['ajax']['to']) && $this->module->getUserId($_POST['ajax']['to'])) {
 						$conv->to = $_POST['ajax']['to'];
-						$conv->initiator_id = $this->module->getUserId($_POST['ajax']['to']);
+						$conv->interlocutor_id = $this->module->getUserId($_POST['ajax']['to']);
 					}
 					else
 						$conv->addError('to','User not found?');
@@ -154,7 +156,7 @@ class MessageController extends Controller
 			// check user-to-user perms
 			if(!$conv->hasErrors() && !$this->module->userToUser && !$this->module->isAdmin())
 			{
-				if(!$this->module->isAdmin($conv->to))
+				if(!$this->module->isAdmin($conv->interlocutor_id))
 					$conv->addError('to', "Invalid user!");
 			}
 			

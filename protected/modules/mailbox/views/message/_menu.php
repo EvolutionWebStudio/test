@@ -16,12 +16,13 @@ else
 	$authTrash = $this->module->trashbox && (!$this->module->readOnly || $this->module->isAdmin());
 	$authSent = $this->module->sentbox && (!$this->module->readOnly || $this->module->isAdmin());
 }
+
 ?>
 <div class="mailbox-menu  ui-helper-clearfix">
 	<div class="mailbox-menu-folders ui-helper-clearfix">
 		<?php
 		if($authInbox):?>
-		<div id="mailbox-inbox" class="mailbox-menu-item <?php echo ($action=='inbox')? 'mailbox-menu-current' : '' ; ?>">
+		<div id="mailbox-inbox" class="mailbox-menu-item <?php  echo ($action=='inbox')? 'mailbox-menu-current' : '' ; ?>">
 			<a href="<?php echo $this->createUrl('message/inbox'); ?>">Inbox <span class="mailbox-new-msgs"><?php echo $newMsgs? '('.$newMsgs.')' : null ; ?></span></a>
 		</div>
 		<?php endif;
