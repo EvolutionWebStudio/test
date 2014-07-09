@@ -17,11 +17,11 @@ else
 	$authSent = $this->module->sentbox && (!$this->module->readOnly || $this->module->isAdmin());
 }
 ?>
-<div class="mailbox-menu ui-helper-clearfix col-md-2">
+<div class="mailbox-menu col-md-2">
     <?php
     if($authNew) :
         ?>
-        <div class="mailbox-menu-newmsg ui-helper-clearfix" align="center">
+        <div class="mailbox-menu-newmsg">
             <span><a href="<?php echo $this->createUrl('message/new'); ?>" class="btn btn-primary btn-block">New Message</a></span>
         </div>
     <?php endif; ?>
