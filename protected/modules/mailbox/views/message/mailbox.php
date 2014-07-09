@@ -36,7 +36,7 @@ EOD;
             <div class="mailbox-clistview-container">
                 <?php
                 if($dataProvider->getItemCount() > 1 && $this->getAction()->getId() != 'sent') : ?>
-                    <div class="btn-group mailbox-checkall-buttons">
+                    <div class="btn-group mailbox-checkall-buttons mailbox-toolbar">
                         <button class="checkall btn btn-default" />Check All</button>
                         <button class="uncheckall btn btn-default" />Uncheck All</button>
                     </div>
@@ -48,7 +48,7 @@ EOD;
                     'dataProvider'=>$dataProvider,
                     'itemView'=>'_list',
                     'itemsTagName'=>'table',
-                    'template'=>'<div class="mailbox-summary">{summary}</div>{sorter}'.$ie6br.'<div id="mailbox-items" class="ui-helper-clearfix">{items}</div>{pager}',
+                    'template'=>'<div class="mailbox-summary">{summary}</div>'.$ie6br.'<div id="mailbox-items" class="">{items}</div>{pager}',
                     'sortableAttributes'=>$this->getAction()->getId()=='sent'?
                     array('created'=>'Date Sent') :
                     array('modified'=>'Date Received'),
@@ -65,7 +65,7 @@ EOD;
                 ));
 
                 if($this->getAction()->getId()!='sent') : ?>
-                    <div style="clear:left"> <span class="mailbox-buttons-label">With selected:</span>
+                    <div class="mailbox-toolbar"> <span class="mailbox-buttons-label">With selected:</span>
                         <?php if($this->getAction()->getId()=='trash') : ?>
                             <input type="submit" id="mailbox-action-restore" class="btn btn-default mailbox-button" name="button[restore]" value="restore" />
                             <input type="submit" id="mailbox-action-delete" class="btn btn-default mailbox-button" name="button[delete]" value="delete forever" />

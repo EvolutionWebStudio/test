@@ -45,7 +45,7 @@ jQuery(document).ready(function(){
 		}
 
 		$('.mailbox-menu-item').click(function(e){
-			var newLocation = $(this).find('a').attr('href');
+			var newLocation = $(this).attr('href');
 			if(newLocation==$('#message-list-form').attr('action'))
 				$.fn.yiiListView.update("mailbox");
 			else

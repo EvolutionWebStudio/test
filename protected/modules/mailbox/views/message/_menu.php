@@ -23,25 +23,25 @@ else
     if($authNew) :
         ?>
         <div class="mailbox-menu-newmsg">
-            <span><a href="<?php echo $this->createUrl('message/new'); ?>" class="btn btn-primary btn-block">New Message</a></span>
+            <span><a href="<?php echo $this->createUrl('message/new'); ?>" class="btn btn-primary btn-block"><i class="fa fa-edit"></i> New Message</a></span>
         </div>
     <?php endif; ?>
 	<div class="mailbox-menu-folders list-group">
 		<?php
 		if($authInbox):?>
-		<div id="mailbox-inbox" class="mailbox-menu-item list-group-item <?php echo ($action=='inbox')? 'mailbox-menu-current' : '' ; ?>">
-			<a href="<?php echo $this->createUrl('message/inbox'); ?>">Inbox <span class="mailbox-new-msgs"><?php echo $newMsgs? '('.$newMsgs.')' : null ; ?></span></a>
-		</div>
+			<a id="mailbox-inbox" class="mailbox-menu-item list-group-item <?php echo ($action=='inbox')? 'active ' : '' ; ?>" href="<?php echo $this->createUrl('message/inbox'); ?>">
+                Inbox <span class="mailbox-new-msgs"><?php echo $newMsgs? '('.$newMsgs.')' : null ; ?></span>
+            </a>
 		<?php endif;
 		if($authSent) : ?>
-		<div  id="mailbox-sent" class="mailbox-menu-item <?php if($action=='sent') echo 'mailbox-menu-current '; ?>">
-			<a href="<?php echo $this->createUrl('message/sent'); ?>">Sent Mail</a>
-		</div>
+			<a id="mailbox-sent" class="mailbox-menu-item list-group-item <?php if($action=='sent') echo 'active '; ?>" href="<?php echo $this->createUrl('message/sent'); ?>">
+                Sent Mail
+            </a>
 		<?php endif;
 		if($authTrash) : ?>
-		<div id="mailbox-trash" class="mailbox-menu-item <?php if($action=='trash') echo 'mailbox-menu-current '; ?>">
-			<a href="<?php echo $this->createUrl('message/trash'); ?>">Trash </a> 
-		</div>
+			<a  id="mailbox-trash" class="mailbox-menu-item list-group-item <?php if($action=='trash') echo 'active '; ?>" href="<?php echo $this->createUrl('message/trash'); ?>">
+                Trash
+            </a>
 		<?php endif; ?>
 	</div>
 </div>

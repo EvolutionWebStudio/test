@@ -1723,9 +1723,10 @@ table.pricing-table-style-1 thead tr th.th-success {
         width:  12.5%;
     }
 }
-/*=========================================================================MESSAGES=========================================================================*/.menu-message {
-                                                                                                                                                                  margin:  20px 0;
-                                                                                                                                                              }
+/*===========MESSAGES=======================*/
+.menu-message {
+    margin:  20px 0;
+}
 .table-message tr.unread {
     font-weight:  600;
     background:  #FFFCE0;

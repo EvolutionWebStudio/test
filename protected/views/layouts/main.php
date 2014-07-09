@@ -14,6 +14,7 @@
     <?php
         $cs->registerCssFile(Yii::app()->getBaseUrl() . '/css/normalize.css');
         $cs->registerCssFile(Yii::app()->getBaseUrl() . '/css/bootstrap.min.css');
+        $cs->registerCssFile(Yii::app()->getBaseUrl() . '/css/font-awesome.min.css');
         $cs->registerCssFile(Yii::app()->getBaseUrl() . '/css/main.css');
 
         $cs->registerScriptFile(Yii::app()->getBaseUrl() . '/js/vendor/custom.modernizr.js', CClientScript::POS_HEAD);

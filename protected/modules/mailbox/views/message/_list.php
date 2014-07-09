@@ -2,10 +2,12 @@
 
 $userid = $this->module->getUserId();
 
-if($this->getAction()->getId()=='sent') {
+if($this->getAction()->getId()=='sent')
+{
 	$counterUserId = $data->recipient_id;
 }
-else {
+else
+{
 	if($this->module->getUserId() == $data->initiator_id)
 		$counterUserId = $data->interlocutor_id;
 	else
