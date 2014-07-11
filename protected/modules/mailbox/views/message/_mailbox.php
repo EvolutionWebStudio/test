@@ -76,7 +76,7 @@ EOD;
     else:
         $this->renderpartial('_empty');
     endif;
-echo '<div class="msgs-count hide">' . $this->module->getNewMsgs() . '</div>'
+echo '<div class="msgs-count hide">' . $this->module->getNewMsgs() . '</div>';
 ?>
 </div>
 

@@ -61,6 +61,21 @@
 			return $.yiimailbox.submitAjax(url);
 		});
 
+        /*
+         * Change number of unread messages in menu
+         */
+        var count = $('.msgs-count').html(); 
+        if(count == 0 || count == undefined)
+        {
+            $('.mailbox-empty')
+                .addClass('ui-widget')
+                .css({'background':'none'});
+            $('.mailbox-new-msgs').text('');
+        }
+        else{
+            $('.mailbox-new-msgs').text('('+count+')');
+        }
+
 		// alternating rows
 		if($.yiimailbox.juiThemes!='widget' && $.yiimailbox.alternateRows!=0)
 		{
@@ -197,17 +212,7 @@
 			* Remove buttons label
 			*/
 			$('.mailbox-buttons-label').hide();
-            var count = $('.msgs-count').html();
-            if(count == 0 || count == undefined)
-            {
-                $('.mailbox-empty')
-                    .addClass('ui-widget')
-                    .css({'background':'none'});
-                $('.mailbox-new-msgs').text('');
-            }
-            else{
-                $('.mailbox-new-msgs').text('('+count+')');
-            }
+
 			/*
 			* Pager Styles
 			*/
