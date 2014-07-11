@@ -15,18 +15,35 @@
         box-sizing: content-box;
     }*/
 
-.mailbox-items-tbl{
-	display: inline-table;
-	margin-top:5px;
-	margin-bottom:5px;
-	width:100% !important;
-}
-
 /* MAILBOX */
 
-#mailbox-items{
-	width:auto;
+.mailbox-toolbar {
+    padding:  0 1em;
 }
+
+.mailbox-items-tbl {
+}
+    .mailbox-items-tbl tr.msg-new {
+        font-weight:  600;
+        background:  #FFFCE0;
+    }
+    .mailbox-items-tbl.table-hover > tbody > tr:hover.msg-new > td {
+        background:  #FCF5BF;
+    }
+    .mailbox-items-tbl tbody tr td a {
+        color:  #5b5b5b;
+    }
+    .mailbox-items-tbl tbody tr td a:hover {
+        text-decoration:  none;
+    }
+
+tr.mailbox-item > td > div {
+    display: block;
+    width:auto;
+}
+
+
+
 #mailbox-list{
 	 padding:0px;
 	 margin-top:20px;
@@ -36,10 +53,7 @@
 	margin-top:20px;
 }
 
-.mailbox-toolbar {
-    margin:  15px 0;
-    padding:  0 15px;
-}
+
 
 .mailbox-compose{
 	margin-top:20px;
@@ -58,39 +72,34 @@
     /*tr.mailbox-item:first-child td{
         border-top:1px solid #ddd;
     }*/
-tr.mailbox-item > td > div{
-	padding:12px 8px 12px 8px;
-	display: block;
-	width:auto;
-}
+
 .mailbox-subject{
 	min-width: 100px;
 	max-width: 100%;
 	width:auto;
 	height:auto;
 }
-.mailbox-item-even{
-	background-color: #f9f9f9;
+    /*.mailbox-item-even{
+        background-color: #f9f9f9;
+    }
+    .mailbox-item-odd{
+        background-color: #efefef;
+    }*/
+    /*
+    .mailbox-item-hover{
+        background-image: url('../img/grippy.png');
+        background-position: 10px , 5px;
+        background-repeat: no-repeat;
+        cursor:grab;
+        cursor: url(../img/openhand.cur), move;
+    }
+    */
+
+.mailbox-received{
+    text-align: right;
+    white-space: nowrap;
 }
-.mailbox-item-odd{
-	background-color: #efefef;
-}
-.mailbox-item-hover{
-	background-image: url('../img/grippy.png');
-	background-position: 10px , 5px;
-	background-repeat: no-repeat;
-	cursor:grab;
-	cursor: url(../img/openhand.cur), move;
-}
-.mailbox-drag{
-	width:12px;
-}
-.mailbox-dragger{
-	cursor:grabber;
-	cursor: url(../img/closedhand.cur), move;
-	position:relative;
-	opacity: .8;
-}
+
 #mailbox-trash-tinydesc{
 	font-size: .7em;
 }
@@ -104,35 +113,32 @@ tr.mailbox-item > td > div{
 .mailbox-sorter ul{
 	margin: 0px;
 }
-.mailbox-received{
-	width:250px !important;
-	white-space: nowrap;
-}
+
 .mailbox-right-col{
 	width:150px;
 }
-.msg-new .mailbox-from, 
-.msg-new .mailbox-subject .mailbox-subject-text,
-.msg-new .mailbox-received{
-	font-weight:bold;
-}
-.msg-new .mailbox-from{
-	background:transparent url('../img/email.png') no-repeat 0 70%;
-}
-.msg-deliver .mailbox-from{
-	background:transparent url('../img/email_deliver.png') no-repeat 0 70%;
-}
-.msg-read .mailbox-from{
-	background:transparent url('../img/email_open.png') no-repeat 0 70%;
-}
-/* If recipientRead is disabled then use the below default class for sent message list */
-.msg-sent .mailbox-from{
-	background:transparent url('../img/arrow_right.png') no-repeat 0 70%;
-}
-.msg-read .mailbox-from .mailbox-subject{
-	font-weight: normal;
-	font-style: italic;
-}
+    /*.msg-new .mailbox-from,
+    .msg-new .mailbox-subject .mailbox-subject-text,
+    .msg-new .mailbox-received{
+        font-weight:bold;
+    }
+    .msg-new .mailbox-from{
+        background:transparent url('../img/email.png') no-repeat 0 70%;
+    }
+    .msg-deliver .mailbox-from{
+        background:transparent url('../img/email_deliver.png') no-repeat 0 70%;
+    }
+    .msg-read .mailbox-from{
+        background:transparent url('../img/email_open.png') no-repeat 0 70%;
+    }
+    *//* If recipientRead is disabled then use the below default class for sent message list *//*
+    .msg-sent .mailbox-from{
+        background:transparent url('../img/arrow_right.png') no-repeat 0 70%;
+    }
+    .msg-read .mailbox-from .mailbox-subject{
+        font-weight: normal;
+        font-style: italic;
+    }*/
 div.mailbox-replied{
 	width:20px;
 	float:left;
@@ -141,12 +147,12 @@ div.mailbox-replied{
 .mailbox-msg-brief{
 	color:#666;
 }
-div.mailbox-from{
-	padding-left: 20px !important;
-}
-.mailbox-from{
-	width:120px;
-}
+    /*div.mailbox-from{
+        padding-left: 20px !important;
+    }*/
+    /*.mailbox-from{
+        width:120px;
+    }*/
 .mailbox-input{
 	padding:0.3em;
 }
@@ -239,17 +245,12 @@ div.mailbox-from{
 .mailbox-input-row{
 	margin-bottom: 12px;
 }
-
-.mailbox-checkall-buttons{
-	float:left;
-	width:240px;
-}
-.mailbox-empty{
-	padding:20px;
-	background-color: #eee;
-	text-align: center;
-	font-size:1.4em;
-}
+    /*.mailbox-empty{
+        padding:20px;
+        background-color: #eee;
+        text-align: center;
+        font-size:1.4em;
+    }*/
 .msgs-count {
     display: none;
 }
@@ -258,7 +259,7 @@ div.mailbox-loading  {
     z-index: 999;
 }
 .mailbox-summary{
-	float:left; padding-left:30px
+
 }
 .mailbox-ellipsis {
 	overflow: hidden;
