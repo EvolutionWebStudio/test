@@ -39,6 +39,14 @@ class MailboxModule extends CWebModule
 	*/
 	public $superuserColumn = 'superuser';
 	/**
+	 * @property string the name of the rep id column in the user table..
+	 */
+	public $userRepColumn = "rep_id";
+	/**
+	 * @property string the name of the rep id column in the user table..
+	 */
+	public $userRoleColumn = "roles";
+	/**
 	* @property string text to display if user not found.
 	*/
 	public $deletedUser = 'user deleted';
@@ -174,7 +182,7 @@ class MailboxModule extends CWebModule
 	/**
 	* @property boolean whether to create a drop down menu for the To field ( from array created by getUserSupportList() method). This attribute is always true for admins unless the getUserSupportList() method returns false.
 	*/
-	public $userSupportList = true;
+	public $userSupportList = false;
 	/**
 	* @property boolean whether to create a link for the From field to user's profile etc (link created by getUrl() method). This attribute is always true for admins unless the getUrl() method returns false.
 	*/
@@ -205,6 +213,7 @@ class MailboxModule extends CWebModule
 	 * @property boolean whether to highlight the message row on hover when viewing message list (ie. inbox etc). 
 	 */
 	public $newsUserId = 0;
+
 	
 	
 	
@@ -223,6 +232,7 @@ class MailboxModule extends CWebModule
 	private $_cssCoreUrl;
 	private $_new;
 	private $_userid;
+	private $_repId;
 	private $_username;
 	private $_jsOptions;
 	
@@ -269,6 +279,33 @@ class MailboxModule extends CWebModule
 		}
 		return $this->_username; 
 	}
+
+	public function getUserRep($userid = 0)
+	{
+		if($userid)
+		{
+			$r = call_user_func(array($this->userClass, 'model'))->findByPk($userid);
+			if(!is_null($r)) return call_user_func(array($this->userClass, 'model'))->findByPk($r->{$this->userRepColumn});
+			return false;
+
+		}
+		if(!$this->_repId) {
+			$userid = Yii::app()->user->{$this->userIdColumn};
+			print_r($userid);
+			$this->_repId = call_user_func(array($this->userClass, 'model'))->findByPk($userid)->{$this->userRepColumn};
+		}
+		print_r($userid);
+		return call_user_func(array($this->userClass, 'model'))->findByPk($this->_repId);
+	}
+
+	public function getAllUsersWithRole($role)
+	{
+		$criteria = new CDbCriteria;
+		$criteria->condition = "{$this->userRoleColumn} = :role";
+		$criteria->params = array(":role"=>$role);
+		$users = call_user_func(array($this->userClass, 'model'))->findAll($criteria);
+		return $users;
+	}
 	
 	public function getFromLabel($userid)
 	{
@@ -299,23 +336,24 @@ class MailboxModule extends CWebModule
 	*/
 	public function autoComplete($term)
 	{
-		$criteria = new CDbCriteria;
-
-		$criteria->compare($this->usernameColumn, $term, true, 'OR');
-		$criteria->compare($this->userIdColumn, $term, true, 'OR');
-		//$criteria->compare('email', $term, true, 'OR');
-		$criteria->mergeWith(array('limit'=>25));
-		$users = call_user_func(array($this->userClass, 'model'))
-			->findAll($criteria);
-		//$users = User::model()->keyword($term)->limit(100)->findAll();
 		$json = '[';
-		foreach($users as $user)
-		{
-			if($user->{$this->userIdColumn}==$this->newsUserId)
-				continue;
-			
-			$json .= '{"label":"'.$user->{$this->usernameColumn}.'",'
-				.'"value":"'.$user->{$this->usernameColumn}.'"},';
+		if($this->userToUser || $this->isAdmin()) {
+			$criteria = new CDbCriteria;
+			$criteria->compare($this->usernameColumn, $term, true, 'OR');
+			$criteria->compare($this->userIdColumn, $term, true, 'OR');
+			//$criteria->compare('email', $term, true, 'OR');
+			$criteria->mergeWith(array('limit'=>25));
+			$users = call_user_func(array($this->userClass, 'model'))
+				->findAll($criteria);
+			//$users = User::model()->keyword($term)->limit(100)->findAll();
+			foreach($users as $user)
+			{
+				if($user->{$this->userIdColumn}==$this->newsUserId)
+					continue;
+
+				$json .= '{"label":"'.$user->{$this->usernameColumn}.'",'
+					.'"value":"'.$user->{$this->usernameColumn}.'"},';
+			}
 		}
 		$json = rtrim($json,',') . ']';
 		die($json);
@@ -336,11 +374,14 @@ class MailboxModule extends CWebModule
 	 */
 	public function getUserSupportList()
 	{
-		$list = array('webmaster@example.com'=>'Site Administrator','support'=>'Customer Support','billing'=>'Billing Administrator' );
+		$rep = $this->getUserRep();
+		$stafs = $this->getAllUsersWithRole("staff");
+		$list = array($rep->{$this->usernameColumn} => $rep->{$this->usernameColumn});
+
 		
 		// we add site news as an option for the admin to create news updates by messaging the news box...
- 		if($this->isAdmin())
-			$list[$this->getUserName($this->newsUserId)] = 'Site News';
+// 		if($this->isAdmin())
+//			$list[$this->getUserName($this->newsUserId)] = 'Site News';
 		return $list;
 	}
 	

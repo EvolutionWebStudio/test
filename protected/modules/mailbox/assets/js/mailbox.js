@@ -64,7 +64,7 @@
         /*
          * Change number of unread messages in menu
          */
-        var count = $('.msgs-count').html(); 
+        var count = $('.msgs-count').html();
         if(count == 0 || count == undefined)
         {
             $('.mailbox-empty')

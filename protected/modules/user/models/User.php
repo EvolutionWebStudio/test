@@ -22,6 +22,7 @@ class User extends CActiveRecord
 	 * @var integer $status
      * @var timestamp $create_at
      * @var timestamp $lastvisit_at
+     * @var integer $rep_id
 	 */
 
 	/**
@@ -60,7 +61,7 @@ class User extends CActiveRecord
             array('create_at', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
             array('lastvisit_at', 'default', 'value' => '0000-00-00 00:00:00', 'setOnEmpty' => true, 'on' => 'insert'),
 			array('username, email, superuser, status', 'required'),
-			array('superuser, status', 'numerical', 'integerOnly'=>true),
+			array('superuser, status, rep_id', 'numerical', 'integerOnly'=>true),
 			array('id, username, password, email, activkey, create_at, lastvisit_at, superuser, status', 'safe', 'on'=>'search'),
 		):((Yii::app()->user->id==$this->id)?array(
 			array('username, email', 'required'),
@@ -102,6 +103,7 @@ class User extends CActiveRecord
 			'lastvisit_at' => UserModule::t("Last visit"),
 			'superuser' => UserModule::t("Superuser"),
 			'status' => UserModule::t("Status"),
+			'rep_id' => UserModule::t("Rep"),
 		);
 	}
 	
@@ -130,7 +132,7 @@ class User extends CActiveRecord
     {
         return CMap::mergeArray(Yii::app()->getModule('user')->defaultScope,array(
             'alias'=>'user',
-            'select' => 'user.id, user.username, user.email, user.create_at, user.lastvisit_at, user.superuser, user.status',
+            'select' => 'user.id, user.username, user.email, user.create_at, user.lastvisit_at, user.superuser, user.status, user.rep_id',
         ));
     }
 	
