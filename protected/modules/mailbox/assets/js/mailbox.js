@@ -19,15 +19,25 @@
 
 	$.yiimailbox.updateMailbox = function(){
 		//console.log('mailbox updated');
+
+        //ICHECK
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue',
+            increaseArea: '20%' // optional
+        });
+
 		/*
 		* Check/Uncheck All
 		*/
 		$('.checkall').unbind('click').click(function(e){
-			$('#message-list-form').find(':checkbox').attr('checked','checked');
+			$('#message-list-form').find(':checkbox').iCheck('check');
+            $('#message-list-form').find(':checkbox').attr('checked','checked');
 			return false;
 		})
 		$('.uncheckall').unbind('click').click(function(e){
-			$('#message-list-form').find(':checkbox').attr('checked',false);
+            $('#message-list-form').find(':checkbox').iCheck('uncheck');
+            $('#message-list-form').find(':checkbox').attr('checked',false);
 			return false;
 		})
 		/*
@@ -75,224 +85,7 @@
         else{
             $('.mailbox-new-msgs').text('('+count+')');
         }
-
-		// alternating rows
-		if($.yiimailbox.juiThemes!='widget' && $.yiimailbox.alternateRows!=0)
-		{
-			//console.log($.yiimailbox.juiThemes)
-			$('.mailbox-item:even').find('td').addClass('mailbox-item-even');
-			$('.mailbox-item:odd').find('td').addClass('mailbox-item-odd');
-		}
-
-		/*
-		* Drag-n-drop delete (draggable area)
-		*/
-		if($.yiimailbox.dragDelete==1)
-		{
-			$('.mailbox-draggable-row').hover(function(e){
-				$(this).find('td:first').addClass('mailbox-item-hover');
-			}, function(e){
-				$(this).find('td:first').removeClass('mailbox-item-hover');
-			});
-			$( ".mailbox-drag" ).draggable({ 
-				containment: 'touch',//$( "#content" ).length ? "#content" : "document",
-				cursor: "grabbing", 
-				cursorAt: {top: 30, left: 5},
-				revert: "invalid", 
-				reverting: function() {
-					var selected = $('#message-list-form input:checked');
-					if (selected.length === 1) {
-						$('#message-list-form input:checked').attr('checked',false)
-					}
-				},
-				helper: function(){
-					var selected = $('#message-list-form input:checked');
-					if (selected.length === 0) {
-						selected = $(this).parent().parent().find(':checkbox').attr('checked','checked');
-
-					}
-					var container = $('<div>').attr('id', 'draggingContainer');
-					container.addClass('mailbox-dragger');
-					// to change/remove the JUI styling for the helper "clone" element edit below
-					container.addClass('ui-widget-header');
-					container.addClass('ui-corner-all');
-					container.append(selected.length+' item selected');
-					return container; 
-				},
-				stop: function() {
-				}
-			});
-		}
-
-		/****************************************
-		*	ADD BASIC WIDGET STYLES
-		****************************************/
-
-		if($.yiimailbox.juiThemes=='basic' || $.yiimailbox.juiThemes=='widget')
-		{
-			if($.yiimailbox.juiButtons==1)
-			{
-				$('#mailbox-list .btn-group').buttonset();
-				$('#mailbox-list .btn').button();
-				if($('.mailbox-sortby').length && ( $('.mailbox-sortby').attr('value') == '' || $('.mailbox-sortby').attr('value').match(/.*\.desc$/i) ) ) {
-					$('.mailbox-sorter li a').button({
-					icons: {
-					secondary: "ui-icon-triangle-1-s"
-					}}); 
-				}
-				else {
-					$('.mailbox-sorter li a').button({
-					icons: {
-					secondary: "ui-icon-triangle-1-n"
-					}});
-				}
-				$('.mailbox-sorter ul').addClass('ui-helper-reset');
-			}
-		}
-
-		/****************************************
-		*	ADD FULL WIDGET STYLES
-		****************************************/
-
-		if($.yiimailbox.juiThemes=='widget')
-		{
-			//console.log('full widget')
-			$('.mailbox-list').addClass('ui-widget ui-widget-content ui-corner-all');
-			$('.mailbox-item:first > td:first').addClass('ui-corner-tl');
-			$('.mailbox-item:first > td:last').addClass('ui-corner-tr');
-			$('.mailbox-item:last > td:first').addClass('ui-corner-bl');
-			$('.mailbox-item:last > td:last').addClass('ui-corner-br');
-			$('.mailbox-items-tbl tr').addClass('ui-widget ui-widget-content ui-helper-clearfix  ui-helper-reset ui-corner-all');
-			$('.mailbox-goto').click(function(e){
-				document.location = $(this).parent().find('.mailbox-link').attr('href');
-			});
-			//$(".mailbox-subject").textTruncate(); //<--- doesn't work evenly across all browsers
-			$('.mailbox-summary .summary').text(
-				$('.mailbox-summary .summary').text().replace(/^.*([0-9,]+\-[0-9,]+[^0-9]+[0-9,]+).*$/i,'$1')
-			);
-			
-			/*
-			* Message tooltips
-			* Here we use the jQuery qTip (v2) plugin to apply the tooltips because the 
-			* qTip plugin comes with JUI theme support. qTip has many different styles 
-			* and options. To view the qTip documentation visit the following link...
-			* 
-			* http://craigsworks.com/projects/qtip2/docs/
-			* 
-			* You can apply custom colors/styles to specific types of messages here 
-			* (eg. could make new mail's tooltip green and pending delivery yellow)
-			*/
-			$('.msg-read .mailbox-link').qtip({
-				content: $(this).attr('title'),
-				position: {target: 'top left'},
-				style:{
-					classes: 'ui-tooltip-shadow',
-					widget:true
-				}
-			});
-			$('.msg-deliver .mailbox-link').qtip({
-				content: $(this).attr('title'),
-				position: {target: 'top left'},
-				style:{
-					classes: 'ui-tooltip-shadow',
-					widget:true
-				}
-			});
-			$('.msg-new .mailbox-link,.msg-sent .mailbox-link').qtip({
-				content: $(this).attr('title'),
-				position: {target: 'top left'},
-				style:{
-					classes: 'ui-tooltip-shadow',
-					widget:true
-				}
-			});
-
-
-			/*
-			* Remove buttons label
-			*/
-			$('.mailbox-buttons-label').hide();
-
-			/*
-			* Pager Styles
-			*/
-			if($('.mailbox-pager').length != 0)
-			{
-				$('.mailbox-pager ul ').css({'margin':'0','padding':'0'});
-				$('.mailbox-pager li.next ').css({'margin-right':'0','padding-right':'0'});
-				$('.mailbox-pager li > a').each(function(){
-					//$(this).text($(this).text().replace(/(First|Previous|Next|Last)/ig,''));
-					$(this).text($(this).text().replace(/[^a-z\s-]+/i,''));
-				});
-				$('.mailbox-pager').html(
-						$('.mailbox-pager').html().replace(/^[a-z\s:-]+/i,'')
-				);
-				$('.mailbox-pager li ').hide();
-				if($('.mailbox-pager li.previous').hasClass('ui-button')==0)
-					$('.mailbox-pager li.previous')
-						.addClass('ui-helper-reset')
-						.css({'float':'left'})
-						.button({
-							icons: {
-								primary: "ui-icon-circle-arrow-w"
-							}
-						})
-						.show()
-						.click(function(e){
-							$.fn.yiiListView.update('mailbox', {url: $(this).find('a').attr('href')});
-						});
-				else $('.mailbox-pager li.previous').show();
-				if($('.mailbox-pager li.next').hasClass('ui-button')==0)
-					$('.mailbox-pager li.next') 
-						.addClass('ui-helper-reset')
-						.css({'float':'left'})
-						.button({
-							icons: {
-								secondary: "ui-icon-circle-arrow-e"
-							}
-						})
-						.show()
-						.click(function(e){
-							$.fn.yiiListView.update('mailbox', {url: $(this).find('a').attr('href')});
-						});
-				else $('.mailbox-pager li.next').show();
-				//$('.mailbox-pager li a').html('<span class="mailbox-ui-pagertext">'+$('.mailbox-pager li a').text()+'</span>');
-				//$('.mailbox-ui-pagertext').hide();
-			}
-			// remove default pager class
-			if($('.yiiPager').length != 0)
-				$('.yiiPager').removeClass('yiiPager');
-
-			/*
-			* Alternate row colors. Since JUI doesn't have alternating color 
-			* classes we "shift" the current background color by the amount
-			* specified in $.yiimailbox.altRowsColorShift
-			*/
-			if($('.mailbox-items-tbl tr').length != 0 && $.yiimailbox.alternateRows == 1 )
-			{
-				$.yiimailbox.shiftBg($('.mailbox-items-tbl tr:even > td').find('.mailbox-item-wrapper'),$.yiimailbox.altRowsColorShift);
-			}
-
-
-			/*
-			* If mailbox is empty
-			*/
-            /*
-			var count = $('.mailbox-count').attr('value');
-			if(count == 0 || count == undefined)
-			{
-				$('.mailbox-empty')
-					.addClass('ui-widget')
-					.css({'background':'none'});
-				$('.mailbox-new-msgs').text('');
-			}
-			else{
-				$('.mailbox-new-msgs').text('('+count+')');
-			}*/
-		}
 	}
-
-
 
 	/**
 	* Return an array of the selected (ie. checked) conversations
@@ -339,11 +132,6 @@
 						// reload page to display empty folder message
 						location.reload();
 					}
-
-
-
-
-
 				}
 				else
 					ajaxGrowl(response.error, buttonname);
@@ -540,14 +328,21 @@
 
 
 })(jQuery); // jQuery
-$.yiimailbox.init()
-// CSS files must be loaded in order for shiftBg to apply change to the correct CSS class 
+$.yiimailbox.init();
+// CSS files must be loaded in order for shiftBg to apply change to the correct CSS class
 jQuery(window).load(function(){
 	/* Alternating row colors for widget styles */
-	if($.yiimailbox.juiThemes == 'widget' 
-		&& $.yiimailbox.alternateRows == 1 
+	if($.yiimailbox.juiThemes == 'widget'
+		&& $.yiimailbox.alternateRows == 1
 		&& $('.mailbox-items-tbl tr').length != 0)
 	{
 		$.yiimailbox.shiftBg($('.mailbox-items-tbl tr:even > td').find('.mailbox-item-wrapper'),$.yiimailbox.altRowsColorShift);
 	}
+
+    //ICHECK
+    $('input').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue',
+        increaseArea: '20%' // optional
+    });
 });

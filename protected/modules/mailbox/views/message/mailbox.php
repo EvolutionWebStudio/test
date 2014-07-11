@@ -37,8 +37,8 @@ EOD;
                 <?php
                 if($dataProvider->getItemCount() > 1 && $this->getAction()->getId() != 'sent') : ?>
                     <div class="btn-group mailbox-checkall-buttons mailbox-toolbar">
-                        <button class="checkall btn btn-default" />Check All</button>
-                        <button class="uncheckall btn btn-default" />Uncheck All</button>
+                        <button class="checkall btn btn-default">Check All</button>
+                        <button class="uncheckall btn btn-default">Uncheck All</button>
                     </div>
                 <?php
                 endif;
@@ -48,18 +48,18 @@ EOD;
                     'dataProvider'=>$dataProvider,
                     'itemView'=>'_list',
                     'itemsTagName'=>'table',
-                    'template'=>'<div class="mailbox-summary">{summary}</div>'.$ie6br.'<div id="mailbox-items" class="">{items}</div>{pager}',
+                    'template'=>'<div class="mailbox-summary">{summary}</div>'.$ie6br.'<div id="mailbox-items" class="table-responsive">{items}</div>{pager}',
                     'sortableAttributes'=>$this->getAction()->getId()=='sent'?
                     array('created'=>'Date Sent') :
                     array('modified'=>'Date Received'),
                     'loadingCssClass'=>'mailbox-loading',
                     'ajaxUpdate'=>'mailbox-list',
                     'afterAjaxUpdate'=>'$.yiimailbox.updateMailbox',
-                    'emptyText'=>'<div style="width:100%"><h3>You have no mail in your '.$this->getAction()->getId().' folder.</h3></div>',
+                    'emptyText'=>'<div class="alert alert-warning"><h3>You have no mail in your '.$this->getAction()->getId().' folder.</h3></div>',
                     //'htmlOptions'=>array('class'=>'ui-helper-clearfix'),
                     'sorterHeader'=>'',
                     'sorterCssClass'=>'mailbox-sorter',
-                    'itemsCssClass'=>'mailbox-items-tbl ui-helper-clearfix',
+                    'itemsCssClass'=>'mailbox-items-tbl table table-hover',
                     'pagerCssClass'=>'mailbox-pager',
                     //'updateSelector'=>'.inbox',
                 ));

@@ -47,7 +47,7 @@ $this->widget('zii.widgets.CListView', array(
     //'htmlOptions'=>array('class'=>'ui-helper-clearfix'),
     'sorterHeader'=>'', 
     'sorterCssClass'=>'mailbox-sorter',
-    'itemsCssClass'=>'mailbox-items-tbl ui-helper-clearfix',
+    'itemsCssClass'=>'mailbox-items-tbl',
     'pagerCssClass'=>'mailbox-pager',
     //'updateSelector'=>'.inbox',
 ));

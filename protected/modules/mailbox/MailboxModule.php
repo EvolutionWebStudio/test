@@ -424,9 +424,11 @@ class MailboxModule extends CWebModule
 		$this->_cs->registerScriptFile($this->_assetsUrl.'/js/jquery.colors.js');
 //		$this->_cs->registerScriptFile($this->_assetsUrl.'/js/menu.js',CClientScript::POS_END);
 		$this->_cs->registerScriptFile($this->_assetsUrl.'/js/jquery.qtip.min.js');
+		$this->_cs->registerScriptFile($this->_assetsUrl.'/js/icheck.js');
 		$this->_cs->registerCssFile(Yii::app()->getBaseUrl() . '/css/bootstrap.min.css');
 		$this->_cs->registerCssFile($this->_assetsUrl . '/css/app.css');
 		$this->_cs->registerCssFile($this->_assetsUrl. '/css/jquery.qtip.min.css');
+		$this->_cs->registerCssFile($this->_assetsUrl. '/js/vendor/iCheck/skins/minimal/blue.css');
 		$this->_cssCoreUrl = $this->_cs->getCoreScriptUrl();
 		$this->_cs->registerCssFile($this->_cssCoreUrl . '/jui/css/base/jquery-ui.css');
 		//$cs->registerCssFile($assetsUrl.'/css/mailbox.css');
