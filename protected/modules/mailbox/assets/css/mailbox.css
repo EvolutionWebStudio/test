@@ -204,6 +204,7 @@ div.mailbox-loading {
 
 /* JUI Combobox/Autocomplete Widget */
 .ui-combobox {
+    width: 100%;
     position: relative;
     display: inline-block;
 }
@@ -220,6 +221,8 @@ div.mailbox-loading {
 }
 
 .ui-autocomplete-input {
-    margin: 0 !important;
-    padding: 0.3em;
+    background: none!important;
+    display: block!important;
+    width: 100%!important;
+    border-radius: 0;
 }
