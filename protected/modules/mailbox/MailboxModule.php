@@ -68,7 +68,7 @@ class MailboxModule extends CWebModule
 	 *
 	 * @property boolean whether to allow user's to message other users. Ie false means users can only contact admins 
 	 */
-	public $userToUser = true;
+	public $userToUser = false;
 	/*
 	 * The following properties do not have an affect if you are using an authManager such as Rights. In this case the authManager will control the access.
 	 *	- sendMsgs
@@ -182,7 +182,7 @@ class MailboxModule extends CWebModule
 	/**
 	* @property boolean whether to create a drop down menu for the To field ( from array created by getUserSupportList() method). This attribute is always true for admins unless the getUserSupportList() method returns false.
 	*/
-	public $userSupportList = false;
+	public $userSupportList = true;
 	/**
 	* @property boolean whether to create a link for the From field to user's profile etc (link created by getUrl() method). This attribute is always true for admins unless the getUrl() method returns false.
 	*/
@@ -383,14 +383,15 @@ class MailboxModule extends CWebModule
 			$rep = $this->getUserRep();
 			$list = array($rep->{$this->usernameColumn} => $rep->{$this->usernameColumn});
 		}
-		$stafs = $this->getAllUsersWithRole("staff");
+		/*$stafs = $this->getAllUsersWithRole("staff");
 		if($stafs)
 		{
 			foreach($stafs as $staf)
 			{
 				$list[$staf->{$this->usernameColumn}] = $staf->{$this->usernameColumn};
 			}
-		}
+		}*/
+        $list = array('konj' => 'konj');
 
 		
 		// we add site news as an option for the admin to create news updates by messaging the news box...

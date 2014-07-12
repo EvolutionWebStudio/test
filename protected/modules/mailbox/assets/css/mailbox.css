@@ -21,7 +21,7 @@
 }
 
 .mailbox-items-tbl tr.msg-new {
-    font-weight: 600;
+    font-weight: bold;
     background: #FFFCE0;
 }
 
@@ -212,12 +212,11 @@ div.mailbox-loading {
 .ui-combobox-btn {
     position: absolute;
     top: 0;
-    bottom: 0;
+    right: 0;
     margin-left: -1px;
-    padding: 0;
-    /* adjust styles for IE 6/7 */
-    *height: 1.7em;
-    *top: 0.1em;
+    z-index: 999;
+    border-radius: 0;
+
 }
 
 .ui-autocomplete-input {

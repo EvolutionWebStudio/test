@@ -15,14 +15,16 @@
 			lastXhr;
 
 			$this.find( "#message-to" ).combobox();
-			$this.find( "#toggle" ).click(function() {
-				$this.find( "#message-to" ).toggle();
-			});
 
+            $this.find(".ui-combobox").addClass("input-group");
             $this.find(".ui-autocomplete-input")
                 .addClass("form-control input-lg")
                 .removeClass("ui-state-default ui-widget ui-widget-content ui-corner-left")
-                .attr('placeholder', 'Message to');
+                .attr('placeholder', $('#message-to').attr('placeholder'));
+            $this.find(".ui-combobox-btn")
+                .addClass("btn btn-lg btn-default")
+                .removeClass("ui-corner-right ui-button-icon")
+                .html('<span class="fa fa-caret-down"></span>');
 
 			/*
 			* Prevent wrong value for To field from being submitted
