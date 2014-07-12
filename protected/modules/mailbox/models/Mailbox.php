@@ -157,15 +157,15 @@ class Mailbox extends CActiveRecord
 			'alias'=>'c',
 			'join'=>"INNER JOIN (
 				SELECT message_id,conversation_id, sender_id,recipient_id,text,created FROM ".MailboxModule::TBL_MSG." 
-				WHERE recipient_id=:userid ORDER BY created DESC  
+				WHERE recipient_id=:userid ORDER BY created DESC
 			) AS m ON(m.conversation_id=c.conversation_id) 
 			INNER JOIN (
 				SELECT conversation_id, IF(sender_id=:userid,1,0) AS is_replied FROM ".MailboxModule::TBL_MSG." 
-				WHERE (recipient_id=:userid OR sender_id=:userid) ORDER BY created DESC 
+				WHERE (recipient_id=:userid OR sender_id=:userid) ORDER BY created DESC
 			) AS ms ON(ms.conversation_id=c.conversation_id)",
 			'condition'=>'(c.initiator_id=:userid OR c.interlocutor_id=:userid) AND (c.bm_deleted & IF(c.initiator_id=:userid,:bminit,:bminter)) = 0',
 			'group'=>"c.conversation_id",
-			'order'=>"MAX( m.created ) DESC",
+			'order'=>"MAX( c.modified ) DESC",
 			'params'=>array(':userid'=>$userid, 
 				      ':bminit'=>self::INITIATOR_FLAG,
 				      ':bminter'=>self::INTERLOCUTOR_FLAG),
