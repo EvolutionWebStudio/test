@@ -9,14 +9,24 @@
 /* MAILBOX LIST */
 
 .mailbox-toolbar {
-    padding: 0 1em;
+
+}
+
+.mailbox-summary {
+    line-height: 2em;
+    text-align: right;
 }
 
 .mailbox-pager {
-    float: right;
-    white-space: nowrap;
+    text-align: right;
+}
+.pagination {
+    margin: 0;
 }
 
+#mailbox-items {
+    margin: 1em 0;
+}
 .mailbox-items-tbl {
 }
 

@@ -380,8 +380,8 @@ class MailboxModule extends CWebModule
 	{
 		if(!$this->userToUser && !$this->isAdmin())
 		{
-			$rep = $this->getUserRep();
-			$list = array($rep->{$this->usernameColumn} => $rep->{$this->usernameColumn});
+			//$rep = $this->getUserRep();
+			//$list = array($rep->{$this->usernameColumn} => $rep->{$this->usernameColumn});
 		}
 		/*$stafs = $this->getAllUsersWithRole("staff");
 		if($stafs)
@@ -391,7 +391,7 @@ class MailboxModule extends CWebModule
 				$list[$staf->{$this->usernameColumn}] = $staf->{$this->usernameColumn};
 			}
 		}*/
-        $list = array('konj' => 'konj');
+        $list = array('webmaster@example.com' => 'konj');
 
 		
 		// we add site news as an option for the admin to create news updates by messaging the news box...
@@ -494,7 +494,7 @@ class MailboxModule extends CWebModule
 	alternateRows:{$this->jsVar('alternateRows')},
 	highlightRows:{$this->jsVar('highlightRows')},
 	sortBy:'{$sortby}',
-	currentFolder:'{$actionId}'
+	currentFolder:'{$actionId}',
 };
 EOD;
 		

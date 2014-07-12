@@ -5,17 +5,6 @@
 	$.yiimailbox.ajaxerror=0;
 	// how much to shift the alternating rows background color by (if alternateRows is enabled by the module).
 	$.yiimailbox.altRowsColorShift = 15;
-	/*
-	var $_GET = {};
-
-	document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
-	function decode(s) {
-		return decodeURIComponent(s.split("+").join(" "));
-	}
-
-	$_GET[decode(arguments[1])] = decode(arguments[2]);
-	});
-	*/
 
 	$.yiimailbox.updateMailbox = function(){
 		//console.log('mailbox updated');
@@ -105,10 +94,10 @@
 		// gather input
 		var convs = $.yiimailbox.getConversations();
 		if(convs.length == 0) {
-			alert('no items selected!');
+			alert('No items selected!');
 			return false;
 		}
-		
+
 		var buttonname = $.yiimailbox.targetinput.attr('name');
 		var data = {'convs[]': convs};
 		data[buttonname] = 1;
@@ -157,56 +146,62 @@
 		$.yiimailbox.updateMailbox();
         autocloseAlert('.alert-dismissible', 5000);
 	}
-	
+
 	$.yiimailbox.confirm = function(url)
 	{
-		var html;
-		var buttons;
-		
-		if($.yiimailbox.getConversations().length == 0) {
-			alert('no items selected!');
+		var title;
+		var message;
+
+		/*if($.yiimailbox.getConversations().length == 0) {
+			alert('No items selected!');
 			return false;
-		}
-		
-		if( ($.yiimailbox.confirmDelete==1 && $.yiimailbox.currentFolder=='trash')
-			|| $.yiimailbox.confirmDelete==2)
+		}*/
+
+		if( ($.yiimailbox.confirmDelete==1 && $.yiimailbox.currentFolder=='trash') || $.yiimailbox.confirmDelete==2)
 		{
 			if($.yiimailbox.currentFolder=='trash' || $.yiimailbox.trashbox==0)
 			{
-				buttons = {
-					"Delete forever": function() {
-						$.yiimailbox.submitAjax(url);
-						$( this ).dialog( "close" );
-					},
-					Cancel: function() {
-						$( this ).dialog( "close" );
-					}
-				}
-				html = '<div id="dialog-confirm" title="Delete items permanently?"><p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>These items will be permanently deleted. Are you sure?</p></div>';
-			}
+                title = 'Delete item(s) permanently?';
+                message = 'These item(s) will be permanently deleted. Are you sure?';
+            }
 			else {
-				buttons = {
-					"Delete": function() {
-						$.yiimailbox.submitAjax(url);
-						$( this ).dialog( "close" );
-					},
-					Cancel: function() {
-						$( this ).dialog( "close" );
-					}
-				}
-				html = '<div id="dialog-confirm" title="Send items to trash?"><p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you want to mark these items as deleted?</p></div>';
+                title = 'Send item(s) to trash?';
+                message = 'Are you sure you want to mark these item(s) as deleted?';
 			}
-			$( html ).dialog({
-				resizable: false,
-				height:180,
-				modal: true,
-				buttons: buttons
-			});
+
+            $.yiimailbox.showConfirmationModal(title, message);
+
+            $('#confirmation-modal').on('hidden.bs.modal', function(e){
+                if($(this).attr('data-answer') == 'yes')
+                {
+                    $.yiimailbox.submitAjax(url);
+                }
+            });
+
 			return true;
 		}
-		else 
+		else
 			return false;
 	}
+
+    $.yiimailbox.showConfirmationModal = function(title, message)
+    {
+        dialog = $('#confirmation-modal');
+
+        dialog.find('.modal-title').text(title);
+        dialog.find('.modal-body').text(message);
+
+        dialog.modal('show')
+            .on('shown.bs.modal', function(e) {
+
+                $(this).find('.modal-btn-no').on('click', function() {
+                    $('#confirmation-modal').attr('data-answer', 'no').modal('hide');
+                });
+                $(this).find('.modal-btn-yes').on('click', function(){
+                    $('#confirmation-modal').attr('data-answer', 'yes').modal('hide');
+                });
+            });
+    }
 
 })(jQuery); // jQuery
 
@@ -217,4 +212,3 @@ function autocloseAlert(selector, delay) {
 jQuery(window).load(function(){
     $.yiimailbox.init();
 });
-

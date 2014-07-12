@@ -45,22 +45,23 @@ switch($itemCssClass)
 }
 
 
-$subject  = '<span class="mailbox-subject-text">';
-$subject .= '<a class="mailbox-link" title="'.$status.'" href="'.$viewLink.'">';
+$subject = '<a class="mailbox-link" title="'.$status.'" href="'.$viewLink.'">';
+$subject .= '<span class="mailbox-subject-text">';
 $subjectSeperator = ' - ';
 if(strlen($data->subject) > $this->module->subjectMaxCharsDisplay)
 {
-	$subject .= substr($data->subject,0,$this->module->subjectMaxCharsDisplay - strlen($this->module->ellipsis) ). $this->module->ellipsis . '</span>';
+	$subject .= substr($data->subject,0,$this->module->subjectMaxCharsDisplay - strlen($this->module->ellipsis) ). $this->module->ellipsis;
 }
 else
 {
-	$subject .= $data->subject .'</span><span class="mailbox-msg-brief">'.$subjectSeperator
+    $subject .= $data->subject;
+	/*$subject .= $data->subject .'</span><span class="mailbox-msg-brief">'.$subjectSeperator
 		 .substr(strip_tags($data->text),0,$this->module->subjectMaxCharsDisplay - strlen($data->subject) - strlen($subjectSeperator) - strlen($this->module->ellipsis) );
 	if(strlen($data->subject) + strlen($data->text) + strlen($subjectSeperator) > $this->module->subjectMaxCharsDisplay)
-		$subject .= $this->module->ellipsis;
+		$subject .= $this->module->ellipsis;*/
 }
 $subject = preg_replace('/[\n\r]+/','',$subject);
-$subject.= '</a></span>';
+$subject.= '</span></a>';
 ?>
 
 

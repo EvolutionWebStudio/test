@@ -21,6 +21,10 @@ $ie6br = <<<EOD
 <br clear="all" />
 <![endif]-->
 EOD;
+
+$checkallButtons = '';
+$additionalActions = '';
+
 ?>
 
 <div id="mailbox-list" class="mailbox-list col-md-10">
@@ -35,12 +39,32 @@ EOD;
 
             <div class="mailbox-clistview-container">
                 <?php
-                if($dataProvider->getItemCount() > 1 && $this->getAction()->getId() != 'sent') : ?>
-                    <div class="btn-group mailbox-checkall-buttons mailbox-toolbar">
-                        <button class="checkall btn btn-default btn-sm">Check All</button>
-                        <button class="uncheckall btn btn-default btn-sm">Uncheck All</button>
-                    </div>
-                <?php
+                /* Creating checkall buttons */
+                if($dataProvider->getItemCount() > 1 && $this->getAction()->getId() != 'sent') :
+                    $checkallButtons = '
+                        <button class="checkall btn btn-default">Check All</button>
+                        <button class="uncheckall btn btn-default">Uncheck All</button>';
+                endif;
+
+                /* Creating additional actions buttons */
+                if($this->getAction()->getId()!='sent'):
+                    $additionalActions = '
+                    <div class="mailbox-additional-actions col-md-6">
+                        <span class="mailbox-buttons-label">With selected:</span>';
+                        if($this->getAction()->getId()=="trash"):
+                            $additionalActions .= '
+                            <input type="submit" id="mailbox-action-restore" class="btn btn-default mailbox-button" name="button[restore]" value="restore" />
+                            <input type="submit" id="mailbox-action-delete" class="btn btn-default mailbox-button" name="button[delete]" value="delete forever" />';
+                        else:
+                            if(!$this->module->readOnly || ( $this->module->readOnly && !$this->module->isAdmin())):
+                                $additionalActions .= '
+                                <input type="submit" id="mailbox-action-delete" class="btn btn-default mailbox-button" name="button[delete]" value="delete" />';
+                            endif;
+                                $additionalActions .= '
+                                <input type="submit" id="mailbox-action-read" class="btn btn-default mailbox-button" name="button[read]" value="read" />
+                                <input type="submit" id="mailbox-action-unread" class="btn btn-default mailbox-button" name="button[unread]" value="unread" />';
+                        endif;
+                    $additionalActions .= '</div>';
                 endif;
 
                 $this->widget('zii.widgets.CListView', array(
@@ -48,7 +72,17 @@ EOD;
                     'dataProvider'=>$dataProvider,
                     'itemView'=>'_list',
                     'itemsTagName'=>'table',
-                    'template'=>'<div class="mailbox-summary">{summary}</div>'.$ie6br.'<div id="mailbox-items" class="table-responsive">{items}</div>{pager}',
+                    'template'=>'
+                        <div class="mailbox-toolbar row">
+                            <div class="btn-group mailbox-checkall-buttons col-md-6">'.
+                                $checkallButtons
+                            .'&nbsp;</div>
+                            <div class="mailbox-summary col-md-6">{summary}</div>
+                        </div>
+                        <div id="mailbox-items" class="table-responsive">{items}</div>
+                        <div class="mailbox-toolbar row">'.
+                        $additionalActions.'<div class="mailbox-pagination col-md-6">{pager}</div>
+                        </div>',
                     'sortableAttributes'=>$this->getAction()->getId()=='sent'?
                     array('created'=>'Date Sent') :
                     array('modified'=>'Date Received'),
@@ -61,23 +95,20 @@ EOD;
                     'sorterCssClass'=>'mailbox-sorter',
                     'itemsCssClass'=>'mailbox-items-tbl table table-hover',
                     'pagerCssClass'=>'mailbox-pager',
-                    //'updateSelector'=>'.inbox',
-                ));
+                    'pager' => array(
+                        'class' => 'CLinkPager',
+                        'header' => '',
+                        'htmlOptions' => array(
+                            'class' => 'pagination'
+                            ),
+                        'firstPageLabel' => '<span class="fa fa-angle-double-left"></span>',
+                        'prevPageLabel' => '<span class="fa fa-angle-left"></span>',
+                        'nextPageLabel' => '<span class="fa fa-angle-right"></span>',
+                        'lastPageLabel' => '<span class="fa fa-angle-double-right"></span>',
 
-                if($this->getAction()->getId()!='sent') : ?>
-                    <div class="mailbox-toolbar"> <span class="mailbox-buttons-label">With selected:</span>
-                        <?php if($this->getAction()->getId()=='trash') : ?>
-                            <input type="submit" id="mailbox-action-restore" class="btn btn-default btn-sm mailbox-button" name="button[restore]" value="restore" />
-                            <input type="submit" id="mailbox-action-delete" class="btn btn-default btn-sm mailbox-button" name="button[delete]" value="delete forever" />
-                        <?php else:
-                            if(!$this->module->readOnly || ( $this->module->readOnly && !$this->module->isAdmin()) ): ?>
-                                <input type="submit" id="mailbox-action-delete" class="btn btn-default btn-sm mailbox-button" name="button[delete]" value="delete" />
-                            <?php endif; ?>
-                            <input type="submit" id="mailbox-action-read" class="btn btn-default btn-sm mailbox-button" name="button[read]" value="read" />
-                            <input type="submit" id="mailbox-action-unread" class="btn btn-default btn-sm mailbox-button" name="button[unread]" value="unread" />
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
+                    )
+                    //'updateSelector'=>'.inbox',
+                ));?>
             </div>
         </form>
     <?php
@@ -87,3 +118,5 @@ EOD;
     echo '<div class="msgs-count hide">' . $this->module->getNewMsgs() . '</div>';
     ?>
 </div>
+
+<?php $this->renderPartial('_modal');
