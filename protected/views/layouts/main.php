@@ -45,7 +45,7 @@
     <?php
         $cs->registerCoreScript('jquery');
         $cs->registerCoreScript('jquery.ui');
-//        /cs->registerScriptFile(Yii::app()->getBaseUrl() . '/js/bootstrap.min.js', CClientScript::POS_END);
+        $cs->registerScriptFile(Yii::app()->getBaseUrl() . '/js/bootstrap.min.js', CClientScript::POS_END);
         $cs->registerScriptFile(Yii::app()->getBaseUrl() . '/js/plugins.js', CClientScript::POS_END);
         $cs->registerScriptFile(Yii::app()->getBaseUrl() . '/js/main.js', CClientScript::POS_END);
     ?>

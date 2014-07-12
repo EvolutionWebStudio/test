@@ -1,7 +1,7 @@
 
 
 ;(function($) {
-	
+
 	$.fn.yiiMailboxMessage = function(options) {
 		return this.each(function(){
 			var settings = $.extend({}, $.fn.yiiMailboxMessage.defaults, options || {});
@@ -10,16 +10,6 @@
 			$.fn.yiiMailboxMessage.settings[id] = settings;
 			
 			message = $(this);
-			
-			if(settings.juiThemes=='widget')
-			{
-				message.find('.mailbox-message-subject').addClass('ui-widget-header ui-corner-all');
-				message.find('.mailbox-message-header').addClass('ui-widget-header ui-corner-top');
-				message.find('.mailbox-message-text').addClass('ui-widget-content ui-corner-bottom');
-				message.find('.mailbox-message-reply').addClass('ui-widget-content ui-corner-all');
-				message.find('.mailbox-message-reply').css({'padding':'10px'});
-				message.find('.mailbox-message-reply textarea').addClass('ui-widget-header ui-corner-all');
-			}
 		});
 	}
 
@@ -39,3 +29,25 @@
 	
 	$.fn.yiiMailboxMessage.settings = {};
 })(jQuery);
+
+$(document).ready(function() {
+    bindSummernote(false);
+    $('a.goto-reply').on('click', function(){
+        bindSummernote(true);
+        return false;
+    });
+});
+
+function bindSummernote(focus)
+{
+    $('.summernote-small').summernote({
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']]
+        ],
+        height: 100,
+        focus: focus
+    });
+}
