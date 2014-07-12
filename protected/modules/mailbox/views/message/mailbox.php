@@ -23,7 +23,7 @@ $ie6br = <<<EOD
 EOD;
 ?>
 
-<div id="mailbox-list" class="mailbox-list col-md-10" sortby="<?php echo $sortby; ?>">
+<div id="mailbox-list" class="mailbox-list col-md-10">
     <?php
     $this->renderpartial('_flash');
 
@@ -37,8 +37,8 @@ EOD;
                 <?php
                 if($dataProvider->getItemCount() > 1 && $this->getAction()->getId() != 'sent') : ?>
                     <div class="btn-group mailbox-checkall-buttons mailbox-toolbar">
-                        <button class="checkall btn btn-default">Check All</button>
-                        <button class="uncheckall btn btn-default">Uncheck All</button>
+                        <button class="checkall btn btn-default btn-sm">Check All</button>
+                        <button class="uncheckall btn btn-default btn-sm">Uncheck All</button>
                     </div>
                 <?php
                 endif;
@@ -67,14 +67,14 @@ EOD;
                 if($this->getAction()->getId()!='sent') : ?>
                     <div class="mailbox-toolbar"> <span class="mailbox-buttons-label">With selected:</span>
                         <?php if($this->getAction()->getId()=='trash') : ?>
-                            <input type="submit" id="mailbox-action-restore" class="btn btn-default mailbox-button" name="button[restore]" value="restore" />
-                            <input type="submit" id="mailbox-action-delete" class="btn btn-default mailbox-button" name="button[delete]" value="delete forever" />
+                            <input type="submit" id="mailbox-action-restore" class="btn btn-default btn-sm mailbox-button" name="button[restore]" value="restore" />
+                            <input type="submit" id="mailbox-action-delete" class="btn btn-default btn-sm mailbox-button" name="button[delete]" value="delete forever" />
                         <?php else:
                             if(!$this->module->readOnly || ( $this->module->readOnly && !$this->module->isAdmin()) ): ?>
-                                <input type="submit" id="mailbox-action-delete" class="btn btn-default mailbox-button" name="button[delete]" value="delete" />
+                                <input type="submit" id="mailbox-action-delete" class="btn btn-default btn-sm mailbox-button" name="button[delete]" value="delete" />
                             <?php endif; ?>
-                            <input type="submit" id="mailbox-action-read" class="btn btn-default mailbox-button" name="button[read]" value="read" />
-                            <input type="submit" id="mailbox-action-unread" class="btn btn-default mailbox-button" name="button[unread]" value="unread" />
+                            <input type="submit" id="mailbox-action-read" class="btn btn-default btn-sm mailbox-button" name="button[read]" value="read" />
+                            <input type="submit" id="mailbox-action-unread" class="btn btn-default btn-sm mailbox-button" name="button[unread]" value="unread" />
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>
@@ -87,11 +87,3 @@ EOD;
     echo '<div class="msgs-count hide">' . $this->module->getNewMsgs() . '</div>';
     ?>
 </div>
-
-<script type="text/javascript">
-/*<![CDATA[*/
-jQuery(function($) {
-	$('.message-subject').hide();
-});
-/*]]>*/
-</script>

@@ -30,24 +30,8 @@
 				}, 250 ); //Make sure delay is greater than 150 ms, as in autocomplete widget.
 				event.preventDefault();
 			});
-
-			/*
-			* JUI Themes
-			*/
-			if(settings.juiThemes=='basic' || settings.juiThemes=='widget')
-			{
-				$this.find('.mailbox-input ').addClass( "ui-state-default  ui-widget ui-widget-content ui-corner-all" );
-				$this.find('.mailbox-message-input ').addClass( "ui-widget ui-widget-header ui-corner-all" );
-				$this.find('.mailbox-compose-inputwrap').css({'padding-right':'10px'});
-			}
-			if(settings.juiThemes=='widget')
-			{
-				$this.addClass('ui-widget ui-widget-content ui-corner-all');
-			}
-			
 		})
 	}
-	
 
 	$.fn.yiiMailboxCompose.defaults = {
 		trashbox: 0,
@@ -65,3 +49,16 @@
 	
 	$.fn.yiiMailboxCompose.settings = {};
 })(jQuery);
+
+$(document).ready(function(){
+
+    $('.summernote-small').summernote({
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']]
+        ],
+        height: 200
+    });
+});

@@ -425,10 +425,13 @@ class MailboxModule extends CWebModule
 //		$this->_cs->registerScriptFile($this->_assetsUrl.'/js/menu.js',CClientScript::POS_END);
 		$this->_cs->registerScriptFile($this->_assetsUrl.'/js/jquery.qtip.min.js');
 		$this->_cs->registerScriptFile($this->_assetsUrl.'/js/icheck.js');
+//		$this->_cs->registerScriptFile(Yii::app()->getBaseUrl() . '/js/bootstrap.js');
+		$this->_cs->registerScriptFile($this->_assetsUrl.'/js/vendor/summernote/summernote.js');
 		$this->_cs->registerCssFile(Yii::app()->getBaseUrl() . '/css/bootstrap.min.css');
 		$this->_cs->registerCssFile($this->_assetsUrl . '/css/app.css');
 		$this->_cs->registerCssFile($this->_assetsUrl. '/css/jquery.qtip.min.css');
 		$this->_cs->registerCssFile($this->_assetsUrl. '/js/vendor/iCheck/skins/minimal/blue.css');
+		$this->_cs->registerCssFile($this->_assetsUrl. '/js/vendor/summernote/summernote.css');
 		$this->_cssCoreUrl = $this->_cs->getCoreScriptUrl();
 		$this->_cs->registerCssFile($this->_cssCoreUrl . '/jui/css/base/jquery-ui.css');
 		//$cs->registerCssFile($assetsUrl.'/css/mailbox.css');
@@ -453,13 +456,6 @@ class MailboxModule extends CWebModule
 			if($this->juiThemes=='widget')
 				$this->_cs->registerCssFile($this->_assetsUrl.'/css/mailbox_widget.css');
 		}
-		// NOTE: button styles do not only get set here. Please look in the mailbox.js as well.
-		if( ($this->juiThemes=='basic' || $this->juiThemes=='widget') && $this->juiButtons)
-		{
-			$js = '$(".btn").button(); $(".btn-group").buttonset();';
-            $this->_cs->registerScript('mailbox-buttons',$js,CClientScript::POS_READY);
-		}
-
 	}
 	
 	public function registerConfig($actionId)

@@ -43,39 +43,36 @@ switch($itemCssClass)
 	case 'msg-new': $status =  ($this->getAction()->getId()=='sent')? 'Recipient has not read your message yet' : 'You received a new message'; break;
 	case 'msg-sent': $status = "You sent message {$username} a message";
 }
+
+
 $subject  = '<span class="mailbox-subject-text">';
 $subject .= '<a class="mailbox-link" title="'.$status.'" href="'.$viewLink.'">';
 $subjectSeperator = ' - ';
 if(strlen($data->subject) > $this->module->subjectMaxCharsDisplay)
 {
-	$subject .= substr($data->subject,0,$this->module->subjectMaxCharsDisplay - strlen($this->module->ellipsis) ). $this->module->ellipsis . '</a></span>';
+	$subject .= substr($data->subject,0,$this->module->subjectMaxCharsDisplay - strlen($this->module->ellipsis) ). $this->module->ellipsis . '</span>';
 }
 else
 {
-	$subject .= $data->subject .'</a></span><span class="mailbox-msg-brief">'.$subjectSeperator
+	$subject .= $data->subject .'</span><span class="mailbox-msg-brief">'.$subjectSeperator
 		 .substr(strip_tags($data->text),0,$this->module->subjectMaxCharsDisplay - strlen($data->subject) - strlen($subjectSeperator) - strlen($this->module->ellipsis) );
 	if(strlen($data->subject) + strlen($data->text) + strlen($subjectSeperator) > $this->module->subjectMaxCharsDisplay)
 		$subject .= $this->module->ellipsis;
 }
 $subject = preg_replace('/[\n\r]+/','',$subject);
-$subject.= '</span>';
+$subject.= '</a></span>';
 ?>
+
+
 <tr class="mailbox-item <?php echo $itemCssClass; ?>">
-    
     <td style="width:20px;">
-        <?php if($this->getAction()->getId()=='sent') : ?>
-            <div class="mailbox-item-wrapper">&nbsp;</div>
-        <?php else: ?>
-            <div class="mailbox-item-wrapper">
-            <label class="ui-helper-reset" for="conv_<?php echo $data->conversation_id; ?>">
-            <div class="">
+        <?php if($this->getAction()->getId()!='sent') : ?>
+            <label class="" for="conv_<?php echo $data->conversation_id; ?>">
                 <input class="mailbox-check " id="conv_<?php echo $data->conversation_id; ?>" type="checkbox" name="convs[]" value="<?php echo $data->conversation_id; ?>" />
-            </div>
-            </div>
             </label>
         <?php endif; ?>
     </td>
-    <td>
+    <td style="width: 200px;">
 		<div  class="mailbox-item-wrapper mailbox-from mailbox-ellipsis"><?php echo $username; ?></div>
     </td>
     <td class="mailbox-subject-brief">
@@ -83,7 +80,7 @@ $subject.= '</span>';
 			<?php echo $subject; ?>
 		</div>
     </td>
-    <td class="mailbox-received">
+    <td style="width: 150px;" class="mailbox-received">
 		<?php if($data->is_replied): ?>
             <span class="fa fa-mail-reply"></span>
 		<?php endif; ?>

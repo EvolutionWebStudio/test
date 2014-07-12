@@ -36,10 +36,6 @@ class MessageController extends Controller
 		$this->module->registerConfig($this->getAction()->getId());
 		$cs = $this->module->getClientScript();
 		$cs->registerScriptFile($this->module->getAssetsUrl().'/js/mailbox.js',CClientScript::POS_END);
-		//$js = '$("#mailbox-list").yiiMailboxList('.$this->module->getOptions().');console.log(1)';
-
-		//$cs->registerScript('mailbox-js',$js,CClientScript::POS_READY);
-
 		
 		if(isset($_POST['convs']))
 		{
@@ -51,7 +47,7 @@ class MessageController extends Controller
 		else{
 			if(!isset($_GET['Mailbox_sort']))
 				$_GET['Mailbox_sort'] = 'modified.desc';
-				
+
 			$this->render('mailbox',array('dataProvider'=>$dataProvider));
 		}
 	}
@@ -90,7 +86,7 @@ class MessageController extends Controller
 			$this->buttonAction('trash','trash');
 		}
 		$period = $this->module->recyclePeriod;
-		Yii::app()->user->setFlash('notice', "Messages in the trash are deleted within {$period} days.");
+		Yii::app()->user->setFlash('info', "Messages in the trash are deleted within {$period} days.");
 		$dataProvider = new CActiveDataProvider( Mailbox::model()->trash($this->module->getUserId()) );
 		if(isset($ajax))
 			$this->renderPartial('_mailbox',array('dataProvider'=>$dataProvider));

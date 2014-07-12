@@ -1,7 +1,5 @@
 <?php
 
-
-
 class ButtonActionBehavior extends CBehavior
 {
 	
@@ -13,10 +11,13 @@ class ButtonActionBehavior extends CBehavior
 	{
 		if(!$_POST['button']) {
 			if($_GET['ajax'])
-				die('{"error":"Action not found?"}');
-			Yii::app()->user->setFlash('error', "Action not found?");
-			$this->controller->redirect(array($this->controller->getId().'/'.$box));
-		}
+            {
+                Yii::app()->user->setFlash('danger', "Action not found?");
+                die('{"error":"Action not found?"}');
+            }
+            Yii::app()->user->setFlash('danger', "Action not found?");
+            $this->controller->redirect(array($this->controller->getId().'/'.$box));
+        }
 		$action = key($_POST['button']);
 		if(!array_key_exists($action,$this->buttons[$buttonset]))
 			throw new Exception('Button action not found?');
@@ -48,23 +49,22 @@ class ButtonActionBehavior extends CBehavior
 			$message = $count." message(s) have been {$partialmsg}!";
 			if(isset($_GET['ajax']))
 			{
-				$tinydesc = isset($_GET['dragdrop'])? ',"tinydesc":"+'.$count.' deleted!","dragdrop":"'.$_GET['dragdrop'].'"' : null;
-				die('{"success":"'.$message.'"'.$tinydesc.',"title":"'.$title.'"}');
-			}
-			Yii::app()->user->setFlash('success', $message);
-			$this->controller->redirect(array($this->controller->getId().'/'.$box));
-		}
+                Yii::app()->user->setFlash('success', $message);
+                die('{"success":"'.$message.'"}');
+            }
+            Yii::app()->user->setFlash('success', $message);
+            $this->controller->redirect(array($this->controller->getId().'/'.$box));
+        }
 		else
 		{
 			$title = "Error occured?";
 			$message = "Message could not be {$partialmsg}!";
 			if(isset($_GET['ajax']))
 			{
-				$tinydesc = isset($_GET['dragdrop'])? ',"tinydesc":"Error deleting?","dragdrop":"'.$_GET['dragdrop'].'"' : null;
-					die('{"error":"Error deleting?"'.$tinydesc.'}');
+                Yii::app()->user->setFlash('danger', $message);
 				die('{"error":"'.$message.'"}');
 			}
-			Yii::app()->user->setFlash('error', $message);
+			Yii::app()->user->setFlash('danger', $message);
 			$this->controller->redirect(array($this->controller->getId().'/'.$box));
 		}
 	}
