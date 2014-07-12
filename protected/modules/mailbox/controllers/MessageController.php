@@ -156,8 +156,8 @@ class MessageController extends Controller
 			// check user-to-user perms
 			if(!$conv->hasErrors() && !$this->module->userToUser && !$this->module->isAdmin())
 			{
-				if(!$this->module->isAdmin($conv->interlocutor_id))
-					$conv->addError('to', "Invalid user!");
+				if(!Yii::app()->user->isStaff() && User::model()->findByPk($conv->initiator_id)->rep_id != $conv->interlocutor_id)
+					$conv->addError('to', "You don't have permissions to send massage to this user!");
 			}
 			
 			$conv->modified = $t;
@@ -271,7 +271,7 @@ class MessageController extends Controller
 		$js = '$(".mailbox-message-list").yiiMailboxMessage('.$this->module->getOptions().");";
 		$cs->registerScript('mailbox-js',$js,CClientScript::POS_READY);
 		
-		$conv = Mailbox::conversation($_GET['id']);
+		$conv = Mailbox::conversation($_GET['id'], 'ASC');
 		
 		$conv->markRead($this->module->getUserId());
 		$reply = new Message;

@@ -301,7 +301,9 @@ class MailboxModule extends CWebModule
 	public function getAllUsersWithRole($role)
 	{
 		$criteria = new CDbCriteria;
-		$criteria->condition = "{$this->userRoleColumn} = :role";
+		$criteria->with = "{$this->userRoleColumn}";
+		$criteria->together = true;
+		$criteria->condition = "{$this->userRoleColumn}.name = :role";
 		$criteria->params = array(":role"=>$role);
 		$users = call_user_func(array($this->userClass, 'model'))->findAll($criteria);
 		return $users;
@@ -314,7 +316,9 @@ class MailboxModule extends CWebModule
 	
 	public function getUrl($userid)
 	{
-		return Yii::app()->createUrl('user', array('user' => $userid));
+		//$accountID_clean = call_user_func(array($this->userClass, 'model'))->findByPk($userid)->accountID_clean;
+		$accountID_clean = $userid;
+		return Yii::app()->createUrl('user/view', array('id' => $accountID_clean));
 	}
 	
 	public function isAdmin($userid=0)
@@ -374,9 +378,19 @@ class MailboxModule extends CWebModule
 	 */
 	public function getUserSupportList()
 	{
-		$rep = $this->getUserRep();
+		if(!$this->userToUser && !$this->isAdmin())
+		{
+			$rep = $this->getUserRep();
+			$list = array($rep->{$this->usernameColumn} => $rep->{$this->usernameColumn});
+		}
 		$stafs = $this->getAllUsersWithRole("staff");
-		$list = array($rep->{$this->usernameColumn} => $rep->{$this->usernameColumn});
+		if($stafs)
+		{
+			foreach($stafs as $staf)
+			{
+				$list[$staf->{$this->usernameColumn}] = $staf->{$this->usernameColumn};
+			}
+		}
 
 		
 		// we add site news as an option for the admin to create news updates by messaging the news box...
